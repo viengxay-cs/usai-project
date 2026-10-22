@@ -30,9 +30,16 @@ export class AuthService {
       throw new BadRequestException('fullName, phone, email, and password are required');
     }
 
-    const existingUser = await this.usersService.findByPhone(phone);
-    if (existingUser) {
+    const existingPhone = await this.usersService.findByPhone(phone);
+
+    if (existingPhone) {
       throw new ConflictException('Phone number is already registered');
+    }
+
+    const existingEmail = await this.usersService.findByEmail(email);
+
+    if (existingEmail) {
+      throw new ConflictException('Email is already registered');
     }
 
     const passwordHash = await bcrypt.hash(dto.password, 12);

@@ -19,6 +19,10 @@ export class UsersService {
     return this.userModel.findOne({ phone: phone.trim() }).exec();
   }
 
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userModel.findOne({ email: email.trim().toLowerCase() }).exec();
+  }
+
   async findAll(): Promise<User[]> {
     return this.userModel.find().select('-passwordHash').exec();
   }
