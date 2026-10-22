@@ -36,10 +36,10 @@ async function bootstrap() {
   });
 
   const port = Number(process.env.PORT ?? 3000);
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
 
   const connection = app.get<Connection>(getConnectionToken());
-  console.log(`🚀 Application is running on: http://localhost:${port}`);
+  console.log(`🚀 Application is running on port ${port}`);
   console.log(`✅ Connected to MongoDB Database: "${connection.name}"`);
 }
 bootstrap();
